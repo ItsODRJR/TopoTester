@@ -35,6 +35,8 @@ namespace TopoTester
                     return;
                 }
 
+                var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
                 using (Transaction tr = db.TransactionManager.StartTransaction())
                 {
                     foreach (ObjectId surfaceId in surfaceIds)
@@ -132,10 +134,12 @@ namespace TopoTester
 
                         File.WriteAllLines(csvPath, csvLines);
                         bmp.Save(imagePath, ImageFormat.Png);
+                        stopwatch.Stop();
 
                         ed.WriteMessage($"\n✅ {samples.Count} points sampled.");
                         ed.WriteMessage($"\n📄 CSV: {csvPath}");
                         ed.WriteMessage($"\n🖼️ Heatmap: {imagePath}");
+                        ed.WriteMessage($"\n⏱️ Elapsed time: {stopwatch.Elapsed.TotalSeconds:F2} seconds.");
                         return;
                     }
 
