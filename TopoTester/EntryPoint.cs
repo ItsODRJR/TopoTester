@@ -35,8 +35,6 @@ namespace TopoTester
                     return;
                 }
 
-                var stopwatch = System.Diagnostics.Stopwatch.StartNew();
-
                 using (Transaction tr = db.TransactionManager.StartTransaction())
                 {
                     foreach (ObjectId surfaceId in surfaceIds)
@@ -84,6 +82,7 @@ namespace TopoTester
                             return;
                         }
 
+                        var stopwatch = System.Diagnostics.Stopwatch.StartNew();
                         string safeName = string.Join("_", surface.Name.Split(Path.GetInvalidFileNameChars()));
                         string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
                         string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
